@@ -2,7 +2,7 @@ import numpy as np
 import random
 
 
-def inside_obstacle_space(x, y, world_map, clearance, modify=True):
+def inside_obstacle_space(x, y, world_map, clearance):
 
     # get height and width of the world map
     h, w = world_map.shape
@@ -15,28 +15,12 @@ def inside_obstacle_space(x, y, world_map, clearance, modify=True):
     if world_map[y, x] == 0:
         return True
 
-    # loop through an area of clearance x clearance around the current location (x, y)
-    for i in range(-clearance, clearance, 1):
-        for j in range(-clearance, clearance, 1):
-            point_x, point_y = x + i, y + j
+    # check if the (x,y) maintains a clearance distance from obstacles
+    X, Y = np.ogrid[x - clearance: x + clearance, y - clearance: y + clearance]
+    num_obstacles = len(np.where(world_map[Y, X] == 0)[0])
+    if num_obstacles:
+        return True
 
-            if modify:
-                # shift points inside boundary of world map
-                point_x, point_y = shift_inside_boundary([x + i, y + j], [w, h], clearance - i, clearance - j)
-
-            else:
-                # check if point is beyond the boundary
-                if beyond_boundary([x, y], [w, h], clearance):
-                    print(point_x, " ", point_y)
-                    return True
-
-            # check if the (x, y) lie inside an obstacle space
-            if world_map[point_y, point_x] == 0:
-
-                # (x, y) lie within an obstacle space, return True
-                return True
-
-    # (x, y) does not lie within any obstacle space, return False
     return False
 
 
@@ -92,11 +76,11 @@ def beyond_boundary(point, size, clearance):
 
     if x < 0 + clearance:
         return True
-    if x >= w - clearance - 1:
+    if x > w - clearance - 1:
         return True
     if y < 0 + clearance:
         return True
-    if y >= h - clearance - 1:
+    if y > h - clearance - 1:
         return True
 
     return False

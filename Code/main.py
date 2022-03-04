@@ -95,8 +95,7 @@ def start_dijkstra(world_map, start_location, end_location, clearance):
     # iterate through open list dictionary till its size is not 0
     while len(open_list):
 
-        # pop a new node with lowest C2C from the open list
-        # cur_node = pop_lowest_c2c_node(open_list)
+        # pop a new node with lowest C2C from the priority queue
         cur_node = pq.get()[2]
 
         # put current node in the closed list
@@ -202,7 +201,7 @@ def solve():
     else:
         try:
             start_location = tuple(map(int, initial_state.split(',')))
-            if ut.inside_obstacle_space(start_location[0], start_location[1], world_map, clearance, False):
+            if ut.inside_obstacle_space(start_location[0], start_location[1], world_map, clearance):
                 print("[ERROR]: Start Location is Inside Obstacle Space, Please Try Again")
                 exit()
         except Exception as e:
@@ -215,7 +214,7 @@ def solve():
     else:
         try:
             end_location = tuple(map(int, goal_state.split(',')))
-            if ut.inside_obstacle_space(end_location[0], end_location[1], world_map, clearance, False):
+            if ut.inside_obstacle_space(end_location[0], end_location[1], world_map, clearance):
                 print("[ERROR]: End Location is Inside Obstacle Space, Please Try Again")
                 exit()
         except Exception as e:
