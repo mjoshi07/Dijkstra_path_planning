@@ -2,6 +2,8 @@
 # Dijkstra_path_planning
 Implemented Dijkstra algorithm to plan a path between two points
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## Result
 * Blue circle represents the start location 
 * Red circle represents the end location
