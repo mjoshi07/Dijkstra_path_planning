@@ -5,6 +5,7 @@ Implemented Dijkstra algorithm to plan a path between two points
 ## Result
 * Blue circle represents the start location 
 * Red circle represents the end location
+* Around each obstacle and boundary a clearance distance is set so that those locations are avoided, clearance value can be defined by the user
 <img src="https://github.com/mjoshi07/Dijkstra_path_planning/blob/main/Data/viz.gif" height=300>
 
 ## Map Generation
